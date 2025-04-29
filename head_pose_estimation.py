@@ -45,7 +45,7 @@ def draw_annotation_box(img, rotation_vector, translation_vector, camera_matrix,
     front_depth = front_size*2
     val = [rear_size, rear_depth, front_size, front_depth]
     point_2d = get_2d_points(img, rotation_vector, translation_vector, camera_matrix, val)
-    # # Draw all the lines
+    ## Draw all the lines
     cv2.polylines(img, [point_2d], True, color, line_width, cv2.LINE_AA)
     cv2.line(img, tuple(point_2d[1]), tuple(
         point_2d[6]), color, line_width, cv2.LINE_AA)
@@ -101,7 +101,7 @@ while True:
             # mark_detector.draw_marks(img, marks, color=(0, 255, 0))
             image_points = np.array([
                                     marks[30],     # Nose tip
-                                    marks[8],     # Chin
+                                    marks[8],      # Chin
                                     marks[36],     # Left eye left corner
                                     marks[45],     # Right eye right corne
                                     marks[48],     # Left Mouth corner
@@ -109,10 +109,6 @@ while True:
                                 ], dtype="double")
             dist_coeffs = np.zeros((4,1)) # Assuming no lens distortion
             (success, rotation_vector, translation_vector) = cv2.solvePnP(model_points, image_points, camera_matrix, dist_coeffs, flags=cv2.SOLVEPNP_UPNP)
-            
-            
-            # Project a 3D point (0, 0, 1000.0) onto the image plane.
-            # We use this to draw a line sticking out of the nose
             
             (nose_end_point2D, jacobian) = cv2.projectPoints(np.array([(0.0, 0.0, 1000.0)]), rotation_vector, translation_vector, camera_matrix, dist_coeffs)
             
@@ -126,9 +122,6 @@ while True:
 
             cv2.line(img, p1, p2, (0, 255, 255), 2)
             cv2.line(img, tuple(x1), tuple(x2), (255, 255, 0), 2)
-            # for (x, y) in marks:
-            #     cv2.circle(img, (x, y), 4, (255, 255, 0), -1)
-            # cv2.putText(img, str(p1), p1, font, 1, (0, 255, 255), 1)
             try:
                 m = (p2[1] - p1[1])/(p2[0] - p1[0])
                 ang1 = int(math.degrees(math.atan(m)))
