@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Proctoring System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>AI Exam Proctoring System</h1>
+            <div class="status-indicator" id="status-indicator">
+                <span id="status-text">Not Running</span>
+                <div class="indicator-light" id="indicator-light"></div>
+            </div>
+        </header>
+        
+        <main>
+            <div class="video-container">
+                <div class="video-frame">
+                    <img id="video-feed" src="" alt="Video Feed">
+                </div>
+                <div class="video-controls">
+                    <button id="start-btn" class="btn primary"><i class="fas fa-play"></i> Start Proctoring</button>
+                    <button id="stop-btn" class="btn danger" disabled><i class="fas fa-stop"></i> Stop Proctoring</button>
+                    <button id="calibrate-btn" class="btn secondary"><i class="fas fa-cog"></i> Calibrate Mouth</button>
+                </div>
+            </div>
+            
+            <div class="violations-panel">
+                <h2>Violation Monitor</h2>
+                <div class="violations-summary">
+                    <div class="violation-count" id="serious-violations">
+                        <span class="count">0</span>
+                        <span class="label">Serious Violations</span>
+                    </div>
+                </div>
+                
+                <div class="violations-details">
+                    <div class="violation-item" id="face-missing">
+                        <div class="violation-icon"><i class="fas fa-user-slash"></i></div>
+                        <div class="violation-info">
+                            <span class="violation-name">No Face Detected</span>
+                            <div class="progress-container">
+                                <div class="progress-bar"></div>
+                                <span class="violation-count">0/5</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="violation-item" id="multiple-faces">
+                        <div class="violation-icon"><i class="fas fa-users"></i></div>
+                        <div class="violation-info">
+                            <span class="violation-name">Multiple Faces</span>
+                            <div class="progress-container">
+                                <div class="progress-bar"></div>
+                                <span class="violation-count">0/3</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="violation-item" id="looking-away">
+                        <div class="violation-icon"><i class="fas fa-eye-slash"></i></div>
+                        <div class="violation-info">
+                            <span class="violation-name">Looking Away</span>
+                            <div class="progress-container">
+                                <div class="progress-bar"></div>
+                                <span class="violation-count">0/5</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="violation-item" id="speaking">
+                        <div class="violation-icon"><i class="fas fa-microphone"></i></div>
+                        <div class="violation-info">
+                            <span class="violation-name">Speaking</span>
+                            <div class="progress-container">
+                                <div class="progress-bar"></div>
+                                <span class="violation-count">0/3</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="violation-item" id="mouth-open">
+                        <div class="violation-icon"><i class="fas fa-comment"></i></div>
+                        <div class="violation-info">
+                            <span class="violation-name">Mouth Open</span>
+                            <div class="progress-container">
+                                <div class="progress-bar"></div>
+                                <span class="violation-count">0/3</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <div class="notification-area" id="notification-area"></div>
+        </footer>
+    </div>
+    
+    <div class="modal" id="calibration-modal">
+        <div class="modal-content">
+            <h2>Mouth Calibration</h2>
+            <p>Please keep your mouth closed normally and look directly at the camera for a few seconds.</p>
+            <div class="calibration-progress">
+                <div class="progress-bar" id="calibration-progress-bar"></div>
+            </div>
+            <div class="modal-buttons">
+                <button id="cancel-calibration" class="btn danger">Cancel</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

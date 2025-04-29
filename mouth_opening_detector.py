@@ -53,7 +53,7 @@ while(True):
             if d_inner[i] + 2 <  shape[p2][1] - shape[p1][1]:
                 cnt_inner += 1
         if cnt_outer > 3 and cnt_inner > 2:
-            print('Mouth open')
+            print('lip-sync Detected')
             cv2.putText(img, 'Mouth open', (30, 30), font,
                     1, (0, 255, 255), 2)
         # show the output image with the face detections + facial landmarks
